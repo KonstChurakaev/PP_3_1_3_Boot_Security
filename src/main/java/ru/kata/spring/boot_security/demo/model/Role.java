@@ -13,23 +13,16 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name", unique = true)
     private String name;
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
-
-    public Role(Long id) {
-        this.id = id;
+    public Role() {
     }
-
 
     public Role(String name) {
-
         this.name = name;
-    }
-
-    public Role() {
-
     }
 
     public Long getId() {
@@ -73,4 +66,10 @@ public class Role implements GrantedAuthority {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    @Override
+    public String toString() {
+        return this.name.split("_")[1];
+    }
+
 }

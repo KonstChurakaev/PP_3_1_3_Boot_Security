@@ -3,37 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit user</title>
-
 </head>
 <body>
+
 <h1>Редактировать пользователя</h1>
 <form th:method="POST" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
-    <table>
-        <tr>
-            <td>
-                <label for="username">Введите имя</label>
-                <input type="text" th:field="*{username}" id="username"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="password">Введите пароль</label>
-                <input type="password" th:field="*{password}" id="password"/>
-            </td>
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <td>
-                <input class ="buttonEdit" type="submit" value="Сохранить изменения"/>
-            </td>
-        </tr>
-    </table>
+    <label>First Name
+        <input type="text" name="username" th:id="username" required th:value="${user.getUsername()}">
+    </label>
+    <br> <br>
+    <label>Last Name
+        <input type="text" name="lastname" th:id="lastname" required th:value="${user.getLastname()}"/>
+    </label>
+    <br> <br>
+    <label>Age
+        <input type="text" name="age" th:id="age" required th:value="${user.getAge()}"/>
+    </label>
+    <br> <br>
+    <label>Email
+        <input type="text" name="email" th:id="emai" required th:value="${user.getEmail()}"/>
+    </label>
+    <br> <br>
+    <label>Password
+        <input type="text" name="password" th:id="password" required th:value="${user.getPassword()}"/>
+    </label>
+    <br> <br>
+    <label>Role
+        <div>
+            <th:block th:each="role : ${listRole}">
+                <input
+                        type="checkbox"
+                        th:field="*{roles}"
+                        th:text="${role.name}"
+                        th:value="${role.id}"
+                />
+            </th:block>
+        </div>
+    </label>
+
+    <br> <br>
+    <button type="submit">Сохранить пользователя</button>
 </form>
 <br>
-</form:form>
-<a href="/">Главная</a>
+<button><a href="/">Главная</a></button>
 <br/>
+<br>
 <button class="buttonLogout" onclick="window.location.href = '/logout';">Выйти</button>
 </body>
 </html>

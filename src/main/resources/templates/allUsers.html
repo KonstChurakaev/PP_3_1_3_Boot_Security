@@ -2,39 +2,49 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <title>Table</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Table</title>
 </head>
 <body>
+
 <br>
-<h1>Таблца пользователей</h1>
-<table border="1" >
-  <tr>
-    <th>ID</th>
-    <th>Логин</th>
-    <th>Пароль</th>
-    <th>Обновление</th>
-    <th>Удаление</th>
+<h1>Admin Panel</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Password</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
-  </tr>
-  <tbody>
-  <tr th:each="user : ${user}">
+    </tr>
+    <tbody>
+    <tr th:each="user : ${listUserr}">
 
-    <td width="200" align="center"  th:utext="${user.getId()}"></td>
-    <td width="200" align="center"  th:utext="${user.getUsername()}"></td>
-    <td width="200" align="center"  th:utext="${user.getPassword()}"></td>
-    <td>
-      <form  th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
-        <button type="submit">Изменить</button>
-      </form>
-    </td>
-    <td>
-      <form  th:method="POST" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
-        <button type="submit">Удалить</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
+        <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
+        <td th:utext="${user.getLastname()}"></td>
+        <td th:utext="${user.getAge()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td th:utext="${user.getRoles()}"></td>
+        <td th:utext="${user.getPassword()}"></td>
+
+        <td>
+            <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+                <button type="submit">Изменить</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="POST" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
 </table>
 <br>
 <button><a href="/admin/add">Создать нового пользователя!</a></button>

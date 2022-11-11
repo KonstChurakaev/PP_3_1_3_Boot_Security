@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findByUserName(String userName) {
-        return userDao.findByUsername(userName);
+        return userDao.findByEmail(userName);
     }
 
     @Transactional
@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new UsernameNotFoundException("Нет такого юзера");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername()
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail()
                 , user.getPassword(), mapRoles(user.getRoles()));
     }
 

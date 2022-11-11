@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Пользователь</title>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
 </head>
 <body>
 <table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Логин</th>
-    <th>Пароль</th>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Password</th>
 
-  </tr>
-  <tbody>
-  <tr th:each="user : ${user}">
-    <td th:utext="${user.getId()}"></td>
-    <td th:utext="${user.getUsername()}"></td>
-    <td th:utext="${user.getPassword()}"></td>
-  </tr>
-  </tbody>
+    </tr>
+    <tbody>
+    <tr th:each="user : ${user}">
+        <td th:utext="${user.getId()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
+        <td th:utext="${user.getLastname()}"></td>
+        <td th:utext="${user.getAge()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td th:utext="${user.getRoles()}"></td>
+        <td th:utext="${user.getPassword()}"></td>
+    </tr>
+    </tbody>
 </table>
 </form:form>
-<button><a href="/">Главная</a></button>
 <br/>
 <button class="buttonLogout" onclick="window.location.href = '/logout';">Выйти</button>
 </body>

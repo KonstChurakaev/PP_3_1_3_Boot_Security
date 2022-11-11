@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.util;
+package ru.kata.spring.boot_security.demo.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -47,8 +47,10 @@ public class CreateUserForTest implements ApplicationRunner {
             adminRole.add(role1);
             adminRole.add(role2);
 
-            userService.addUser(new User( "Admin",passwordEncoder.encode("admin"), adminRole ));
-            userService.addUser(new User( "User", passwordEncoder.encode("user"), userRole ));
+            userService.addUser(new User("Ivan", "Ivanov", (byte) 20, "admin@admin"
+                    , passwordEncoder.encode("1"), adminRole));
+            userService.addUser(new User("Oleg", "Ivanov", (byte) 20, "user"
+                    , passwordEncoder.encode("1"), userRole));
 
         }
     }

@@ -20,9 +20,9 @@ import java.util.Set;
 public class AdminController {
 
 
-    private UserServiceImpl userService;
-    private RoleServiceImpl roleService;
-    private PasswordEncoder passwordEncoder;
+    private final UserServiceImpl userService;
+    private final RoleServiceImpl roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public AdminController(UserServiceImpl userService, RoleServiceImpl roleService,
@@ -32,28 +32,21 @@ public class AdminController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/allUsers" )
+    @GetMapping("/allUsers")
     public String getAllUsers(Model model) {
-        List<User> user = userService.getAllUser();
-        model.addAttribute("user", user);
+        model.addAttribute("listUserr", userService.getAllUser());
         return "allUsers";
     }
 
     @GetMapping(value = "add")
     public String getFormAddUser(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("listRole", roleService.getAllRoles());
         return "addUser";
     }
 
     @PostMapping(value = "add")
-    public String addNewUser(@ModelAttribute("user") User user,
-                             @RequestParam(required = false) String roleAdmin) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getRoleById(2L));
-        if (roleAdmin != null && roleAdmin.equals("ROLE_ADMIN")) {
-            roles.add(roleService.getRoleById(1L));
-        }
-        user.setRoles(roles);
+    public String addNewUser(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return "redirect:/admin/allUsers";
@@ -61,8 +54,8 @@ public class AdminController {
 
     @GetMapping(value = "/edit/{id}")
     public String getFormEditUser(Model model, @PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("listRole", roleService.getAllRoles());
         return "udate";
     }
 

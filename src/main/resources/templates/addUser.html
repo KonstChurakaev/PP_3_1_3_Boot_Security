@@ -1,41 +1,50 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:c="" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add user</title>
 </head>
 <body>
 <h1>Добавить пользователя</h1>
-<form th:action="@{add}"
-      th:object="${user}"
-      method="post">
-    <fieldset>
-        <legend>Данные пользователя</legend>
-        <p>
-            <label th:for="username">Логин
-                <input type="text"
-                       name="username"
-                       th:id="username">
-            </label>
-            <br>
-            <br>
-            <label th:for="password">Пароль
-                <input type="text"
-                       name="password"
-                       th:id="password">
-            </label>
-            <br>
-            <br>
-            <label>Администратор
-                <input type="checkbox"
-                       name="roleAdmin"
-                       th:value="ROLE_ADMIN"
-                       th:text="Администратор">
-            </label>
-        </p>
-    </fieldset>
+
+<form th:action="@{add}" th:object="${user}" method="post">
+    <label>First Name
+        <input type="text" name="username" th:id="username">
+    </label>
+    <br> <br>
+    <label>Last Name
+        <input type="text" name="lastname" th:id="lastname"/>
+    </label>
+    <br> <br>
+    <label>Age
+        <input type="text" name="age" th:id="age"/>
+    </label>
+    <br> <br>
+    <label>Email
+        <input type="text" name="email" th:id="emai"/>
+    </label>
+    <br> <br>
+    <label>Password
+        <input type="text" name="password" th:id="password"/>
+    </label>
+    <br> <br>
+    <label>Role
+        <div>
+            <th:block th:each="role : ${listRole}">
+                <input
+                        type="checkbox"
+                        th:field="*{roles}"
+                        th:text="${role.name}"
+                        th:value="${role.id}"
+                />
+            </th:block>
+        </div>
+    </label>
+    <br> <br>
     <button type="submit">Сохранить пользователя</button>
 </form>
+<br> <br>
+
 <br/>
 <form th:action="@{/admin/allUsers}">
     <button type="submit">Назад к списку пользователей</button>
