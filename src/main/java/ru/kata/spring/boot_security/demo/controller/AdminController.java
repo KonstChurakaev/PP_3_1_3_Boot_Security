@@ -19,17 +19,13 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     private final UserServiceImpl userService;
     private final RoleServiceImpl roleService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserServiceImpl userService, RoleServiceImpl roleService,
-                           PasswordEncoder passwordEncoder) {
+    public AdminController(UserServiceImpl userService, RoleServiceImpl roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/allUsers")
@@ -47,7 +43,6 @@ public class AdminController {
 
     @PostMapping(value = "add")
     public String addNewUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return "redirect:/admin/allUsers";
     }
@@ -61,7 +56,6 @@ public class AdminController {
 
     @PostMapping(value = "/edit/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(user);
         return "redirect:/admin/allUsers";
     }
