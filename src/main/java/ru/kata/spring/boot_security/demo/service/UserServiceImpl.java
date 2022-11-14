@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUserName(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Нет такого пользователя");
+            throw new UsernameNotFoundException("User not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail()
                 , user.getPassword(), mapRoles(user.getRoles()));

@@ -47,9 +47,9 @@ public class CreateUserForTest implements ApplicationRunner {
             adminRole.add(role1);
             adminRole.add(role2);
 
-            userService.addUser(new User("Ivan", "Ivanov", (byte) 20, "admin@admin"
+            userService.addUser(new User("admin", "Ivanov", (byte) 20, "admin"
                     , passwordEncoder.encode("1"), adminRole));
-            userService.addUser(new User("Oleg", "Ivanov", (byte) 20, "user"
+            userService.addUser(new User("user", "Ivanov", (byte) 20, "user"
                     , passwordEncoder.encode("1"), userRole));
 
         }
